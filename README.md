@@ -316,36 +316,15 @@ Se você utilizar este trabalho, por favor cite:
   note         = {Trabalho de Conclusão de Curso},
 }
 ```
-
----
-
-## 🤝 Contribuições
-
-Contribuições são bem-vindas! Por favor:
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/NovaFeature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona NovaFeature'`)
-4. Push para a branch (`git push origin feature/NovaFeature`)
-5. Abra um Pull Request
-
-Ver [CONTRIBUTING.md](CONTRIBUTING.md) para mais detalhes.
-
----
-
-## 📄 Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
 ---
 
 ## 👤 Autor
 
 **Eduardo Barbante Rodrigues**
 
-- GitHub: [@seu-usuario](https://github.com/seu-usuario)
-- LinkedIn: [Eduardo Barbante](https://www.linkedin.com/in/seu-perfil/)
-- Email: eduardo.barbante@usp.br
+- GitHub: [@edurodrigues-usp](https://github.com/edurodrigues-usp)
+- LinkedIn: [Eduardo Rodrigues](https://www.linkedin.com/in/eduardorodrigues01/)
+- Email: eduardo.rds@icloud.com
 
 ---
 
