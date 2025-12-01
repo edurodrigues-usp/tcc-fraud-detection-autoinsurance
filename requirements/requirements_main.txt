@@ -1,0 +1,27 @@
+# =============================================================================
+# Requirements - Pipeline Principal de Detecção de Fraudes
+# =============================================================================
+# Ambiente: venv_main
+# Python: 3.11+
+# =============================================================================
+
+# Core Data Science
+numpy>=1.24.0,<2.0.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Machine Learning
+scikit-learn>=1.4.0
+imbalanced-learn>=0.12.0
+
+# Gradient Boosting
+xgboost>=2.0.0
+lightgbm>=4.0.0
+catboost>=1.2.0
+
+# Hyperparameter Optimization
+optuna>=3.5.0
+
+# Utilities
+joblib>=1.3.0
+tqdm>=4.65.0

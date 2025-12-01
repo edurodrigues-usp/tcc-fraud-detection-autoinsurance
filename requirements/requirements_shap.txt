@@ -1,0 +1,34 @@
+# =============================================================================
+# Requirements - Análise SHAP (Interpretabilidade)
+# =============================================================================
+# Ambiente: venv_shap
+# Python: 3.11+
+# =============================================================================
+#
+# ⚠️ ATENÇÃO: Este ambiente usa versões ESPECÍFICAS para evitar conflitos!
+#    NumPy 1.26.4 é OBRIGATÓRIO (NumPy 2.x causa erros de desserialização)
+#
+# =============================================================================
+
+# Core - VERSÕES FIXAS para compatibilidade
+numpy==1.26.4
+pandas==2.1.4
+
+# SHAP
+shap==0.50.0
+
+# Visualização
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# ML (necessário para carregar o modelo)
+scikit-learn>=1.4.0
+xgboost>=2.0.0
+lightgbm>=4.0.0
+catboost>=1.2.0
+
+# Imbalanced-learn (necessário para deserializar pipelines)
+imbalanced-learn>=0.12.0
+
+# Utilities
+joblib>=1.3.0

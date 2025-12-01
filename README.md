@@ -1,363 +1,285 @@
-# 🎓 TCC: Detecção de fraudes em seguros automotivos com aprendizado de máquina e inteligência artificial explicável (XAI)
+# Detecção de Fraudes em Seguros Automotivos com Machine Learning e XAI
 
-[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Institution](https://img.shields.io/badge/Institution-ICMC--USP-red.svg)](https://www.icmc.usp.br/)
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![ICMC-USP](https://img.shields.io/badge/ICMC-USP-green.svg)](https://www.icmc.usp.br/)
 
-**Trabalho de Conclusão de Curso (TCC)**  
-**Autor:** Eduardo Barbante Rodrigues  
-**Orientadora:** Profa. Dra. Cibele M. Russo  
-**Instituição:** Instituto de Ciências Matemáticas e de Computação (ICMC-USP)  
-**Ano:** 2025
+> **MBA em Inteligência Artificial e Big Data - ICMC/USP**  
+> **Autor:** Eduardo Barbante Rodrigues  
+> **Orientadora:** Profa. Dra. Cibele Maria Russo Novelli  
+> **Ano:** 2025
 
 ---
 
 ## 📋 Sobre o Projeto
 
-Este repositório contém o código-fonte completo, dados e documentação do Trabalho de Conclusão de Curso que propõe um sistema de detecção de fraudes em seguros automotivos utilizando técnicas de aprendizado de máquina. O trabalho integra três perspectivas de avaliação:
+Este repositório contém o código-fonte do Trabalho de Conclusão de Curso (TCC) que propõe um sistema de detecção de fraudes em seguros automotivos baseado em aprendizado de máquina, integrando três perspectivas complementares:
 
-- **🎯 Técnica:** Métricas especializadas para dados desbalanceados (MCC, G-Mean, Kappa)
-- **💰 Econômica:** Análise de viabilidade financeira (ROI, Benefício Líquido)
-- **🔍 Interpretabilidade:** Técnicas de XAI (SHAP) para transparência das decisões
+1. **Desempenho Preditivo** - Métricas robustas para dados desbalanceados (MCC, G-Mean, Kappa)
+2. **Viabilidade Econômica** - Análise de ROI e Benefício Líquido
+3. **Interpretabilidade** - Explicabilidade das decisões via SHAP (XAI)
 
-### 📊 Principais Resultados
+### 🏆 Resultados Principais
 
 | Métrica | Valor |
 |---------|-------|
-| **MCC** | 0,3144 |
-| **G-Mean** | 0,69 |
-| **Kappa** | 0,2924 |
-| **Recall** | 52,72% |
-| **Precision** | 26,08% |
-| **ROI** | **943%** |
-| **Benefício Líquido** | **R$ 3.508.000** |
-
-**Modelo Campeão:** CatBoost + SMOTEENN  
-**Ganho vs. Baseline:** +23,9% (R$ 676.000)
+| **Modelo Campeão** | CatBoost + SMOTEENN |
+| **MCC** | 0.3144 |
+| **Recall (Taxa de Captura)** | 52.7% |
+| **ROI** | 943% |
+| **Benefício Líquido** | R$ 3.508.000 |
 
 ---
 
-## 🗂️ Estrutura do Repositório
+## 📁 Estrutura do Repositório
 
 ```
 tcc-fraud-detection-autoinsurance/
 │
-├── data/                          # Dados
-│   ├── fraud_oracle.csv          # Dataset principal (Kaggle)
-│   └── README.md                 # Descrição dos dados
+├── README.md                          # Este arquivo
+├── LICENSE                            # Licença MIT
 │
-├── src/                          # Código-fonte
-│   ├── preprocessing/            # Pré-processamento
-│   │   ├── feature_engineering.py
-│   │   └── data_cleaning.py
-│   │
-│   ├── models/                   # Modelagem
-│   │   ├── train_pipeline.py
-│   │   ├── optimization.py
-│   │   └── evaluation.py
-│   │
-│   ├── interpretability/         # Análise SHAP
-│   │   ├── shap_analysis.py
-│   │   └── shap_visualizations.py
-│   │
-│   └── utils/                    # Utilitários
-│       ├── metrics.py
-│       └── plots.py
+├── src/                               # Código-fonte principal
+│   ├── fraud_detection.py             # Pipeline completo (treino, validação, teste)
+│   └── fraud_detection_shap_analysis.py  # Análise SHAP (interpretabilidade)
 │
-├── notebooks/                    # Jupyter Notebooks
-│   ├── 01_exploratory_analysis.ipynb
-│   ├── 02_feature_engineering.ipynb
-│   ├── 03_model_training.ipynb
-│   └── 04_shap_analysis.ipynb
+├── requirements/                      # Dependências separadas por ambiente
+│   ├── requirements_main.txt          # Pipeline principal
+│   └── requirements_shap.txt          # Análise SHAP (ambiente separado)
 │
-├── models/                       # Modelos treinados
-│   ├── best_model_FINAL_V3.pkl
-│   └── README.md
+├── scripts/                           # Scripts auxiliares
+│   ├── setup_main_env.sh              # Setup ambiente principal (Linux/Mac)
+│   ├── setup_shap_env.sh              # Setup ambiente SHAP (Linux/Mac)
+│   ├── setup_main_env.bat             # Setup ambiente principal (Windows)
+│   └── setup_shap_env.bat             # Setup ambiente SHAP (Windows)
 │
-├── results/                      # Resultados
-│   ├── figures/                  # Figuras para o TCC
-│   ├── tables/                   # Tabelas (CSVs)
-│   └── shap_results/            # Análises SHAP
+├── data/                              # Dados (não versionados)
+│   └── .gitkeep
 │
-├── config/                       # Configurações
-│   ├── model_config.yaml
-│   └── optuna_config.yaml
+├── outputs/                           # Resultados gerados (não versionados)
+│   └── .gitkeep
 │
-├── scripts/                      # Scripts utilitários
-│   ├── setup_environment.bat     # Windows
-│   ├── setup_environment.sh      # Linux/Mac
-│   └── run_full_pipeline.py
-│
-├── docs/                         # Documentação
-│   ├── INSTALL.md               # Instruções de instalação
-│   ├── USAGE.md                 # Guia de uso
-│   └── METHODOLOGY.md           # Metodologia detalhada
-│
-├── requirements.txt              # Dependências principais
-├── requirements_shap.txt         # Ambiente SHAP (separado)
-├── .gitignore                    # Arquivos ignorados
-├── LICENSE                       # Licença MIT
-└── README.md                     # Este arquivo
+└── docs/                              # Documentação adicional
+    └── COMPATIBILITY_NOTES.md         # Notas sobre compatibilidade de versões
 ```
 
 ---
 
-## 🚀 Início Rápido
+## 🚀 Quick Start
 
-### 1️⃣ **Pré-requisitos**
+### Pré-requisitos
 
 - Python 3.11+
 - Git
-- 4 GB RAM mínimo (recomendado: 8 GB)
-- 2 GB espaço em disco
+- 16GB RAM (recomendado)
 
-### 2️⃣ **Clonar Repositório**
+### 1. Clone o Repositório
 
 ```bash
-git clone https://github.com/seu-usuario/tcc-fraud-detection-autoinsurance.git
+git clone https://github.com/edurodrigues-usp/tcc-fraud-detection-autoinsurance.git
 cd tcc-fraud-detection-autoinsurance
 ```
 
-### 3️⃣ **Criar Ambiente Virtual**
+### 2. Baixe o Dataset
 
-#### Windows:
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
+O dataset **Fraud Oracle** está disponível no Kaggle:
+- 📥 [Vehicle Insurance Claim Fraud Detection](https://www.kaggle.com/datasets/shivamb/vehicle-claim-fraud-detection)
 
-#### Linux/Mac:
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
+Após download, coloque o arquivo `fraud_oracle.csv` na pasta `data/`.
 
-### 4️⃣ **Instalar Dependências**
+### 3. Configure os Ambientes
 
-#### Ambiente Principal (treinamento):
-```bash
-pip install -r requirements.txt
-```
+⚠️ **IMPORTANTE:** Este projeto requer **dois ambientes virtuais separados** devido a incompatibilidades entre versões de bibliotecas (ver [Notas de Compatibilidade](docs/COMPATIBILITY_NOTES.md)).
 
-#### Ambiente SHAP (interpretabilidade - separado):
-```bash
-python -m venv shap_env
-shap_env\Scripts\activate  # Windows
-# source shap_env/bin/activate  # Linux/Mac
-pip install -r requirements_shap.txt
-```
-
-**⚠️ Importante:** Ambientes separados para evitar conflitos de dependências!
-
-### 5️⃣ **Executar Pipeline Completo**
+#### Ambiente Principal (Pipeline de ML)
 
 ```bash
-python scripts/run_full_pipeline.py
+# Linux/Mac
+python -m venv venv_main
+source venv_main/bin/activate
+pip install -r requirements/requirements_main.txt
+
+# Windows
+python -m venv venv_main
+venv_main\Scripts\activate
+pip install -r requirements/requirements_main.txt
 ```
 
-**Tempo estimado:** ~45-60 minutos
+#### Ambiente SHAP (Interpretabilidade)
 
-**Saída:**
-- Modelo treinado: `models/best_model_FINAL_V3.pkl`
-- Métricas: `results/tables/model_comparison.csv`
-- Figuras: `results/figures/`
+```bash
+# Linux/Mac
+python -m venv venv_shap
+source venv_shap/bin/activate
+pip install -r requirements/requirements_shap.txt
+
+# Windows
+python -m venv venv_shap
+venv_shap\Scripts\activate
+pip install -r requirements/requirements_shap.txt
+```
+
+### 4. Execute o Pipeline
+
+#### Etapa 1: Treinar e Avaliar Modelos
+
+```bash
+# Ativar ambiente principal
+source venv_main/bin/activate  # Linux/Mac
+# ou
+venv_main\Scripts\activate     # Windows
+
+# Executar pipeline (modo FAST para teste rápido)
+cd src
+python fraud_detection.py
+
+# Para execução completa (TCC), edite FAST_MODE = False no script
+```
+
+**Saídas geradas:**
+- `best_model_final_full.pkl` - Modelo completo para SHAP
+- `best_model_final_light.pkl` - Modelo leve para deploy
+- `model_comparison_FINAL_V3.csv` - Comparação de todos os modelos
+- `champion_cv_results.csv` - Resultados da validação cruzada
+
+#### Etapa 2: Análise SHAP (Interpretabilidade)
+
+```bash
+# ⚠️ TROCAR para ambiente SHAP
+deactivate
+source venv_shap/bin/activate  # Linux/Mac
+# ou
+venv_shap\Scripts\activate     # Windows
+
+# Copiar arquivos necessários
+cp ../outputs/best_model_final_full.pkl .
+cp ../data/fraud_oracle.csv .
+
+# Executar análise SHAP
+python fraud_detection_shap_analysis.py
+```
+
+**Saídas geradas (pasta `shap_results/`):**
+- 23 visualizações PNG (summary plots, waterfalls, dependence plots)
+- 1 HTML interativo (force plot)
+- CSVs com valores SHAP e importâncias
 
 ---
 
-## 📖 Guias Detalhados
+## 📊 Metodologia
 
-### 🔧 [Instalação Completa](docs/INSTALL.md)
-Instruções detalhadas de instalação em diferentes sistemas operacionais.
+### Pipeline de Dados
 
-### 📘 [Guia de Uso](docs/USAGE.md)
-Como executar cada componente do sistema separadamente.
+```
+Dataset Bruto (15.420 registros)
+        │
+        ▼
+┌─────────────────────────────────────┐
+│  LIMPEZA E DIVISÃO ESTRATIFICADA    │
+│  Train (60%) / Val (20%) / Test (20%)│
+└─────────────────────────────────────┘
+        │
+        ▼
+┌─────────────────────────────────────┐
+│  FEATURE ENGINEERING (fit no train) │
+│  • Isolation Forest (anomaly score) │
+│  • Target Encoding (fraud rates)    │
+│  • Variáveis de interação           │
+└─────────────────────────────────────┘
+        │
+        ▼
+┌─────────────────────────────────────┐
+│  MODELAGEM COM BALANCEAMENTO        │
+│  • SMOTE / ADASYN / SMOTEENN        │
+│  • Otimização Bayesiana (Optuna)    │
+│  • Threshold Tuning (Kappa)         │
+└─────────────────────────────────────┘
+        │
+        ▼
+┌─────────────────────────────────────┐
+│  AVALIAÇÃO FINAL                    │
+│  • Métricas técnicas (MCC, G-Mean)  │
+│  • Métricas de negócio (ROI)        │
+│  • Interpretabilidade (SHAP)        │
+└─────────────────────────────────────┘
+```
 
-### 🧪 [Metodologia](docs/METHODOLOGY.md)
-Explicação detalhada das técnicas utilizadas.
+### Algoritmos Avaliados
+
+| Categoria | Algoritmos |
+|-----------|------------|
+| **Baselines** | DummyClassifier, Logistic Regression |
+| **Ensemble/Boosting** | Random Forest, XGBoost, LightGBM, CatBoost |
+
+### Técnicas de Balanceamento
+
+- SMOTE (Synthetic Minority Over-sampling)
+- ADASYN (Adaptive Synthetic Sampling)
+- SMOTEENN (SMOTE + Edited Nearest Neighbors)
+- SMOTETomek (SMOTE + Tomek Links)
 
 ---
 
-## 🎯 Reproduzindo os Resultados do TCC
+## 📈 Resultados Detalhados
 
-### Passo 1: Feature Engineering
+### Top 5 Modelos (Validação)
 
-```bash
-python src/preprocessing/feature_engineering.py
-```
+| Rank | Modelo | Sampler | Score Composto | MCC | Recall |
+|------|--------|---------|----------------|-----|--------|
+| 1 | CatBoost | SMOTEENN | 0.4325 | 0.3144 | 52.7% |
+| 2 | LightGBM | SMOTETomek | 0.4256 | 0.3087 | 50.5% |
+| 3 | CatBoost | Nenhum | 0.4218 | 0.3151 | 44.0% |
+| 4 | CatBoost | SMOTETomek | 0.4208 | 0.3106 | 45.7% |
+| 5 | XGBoost | SMOTETomek | 0.4198 | 0.3073 | 46.7% |
 
-**Saída:** `data/processed/fraud_oracle_engineered.csv`
+### Análise SHAP - Top 5 Variáveis
 
-### Passo 2: Treinamento e Otimização
-
-```bash
-python src/models/train_pipeline.py --optimize
-```
-
-**Tempo:** ~30-40 minutos  
-**Saída:** Modelo otimizado com Optuna
-
-### Passo 3: Avaliação Econômica
-
-```bash
-python src/models/evaluation.py --economic
-```
-
-**Saída:** Tabelas e figuras de análise econômica
-
-### Passo 4: Análise SHAP
-
-```bash
-# Ativar ambiente SHAP
-shap_env\Scripts\activate
-
-# Executar análise
-python src/interpretability/shap_analysis.py
-```
-
-**Tempo:** ~8-10 minutos  
-**Saída:** 25 visualizações SHAP
+1. **Fault_Policy_Holder** - Culpa do segurado (preditor dominante)
+2. **Is_Third_Party_Fault** - Culpa de terceiro
+3. **BasePolicy_fraud_rate** - Taxa histórica de fraude da apólice
+4. **Make_fraud_rate** - Taxa histórica de fraude por fabricante
+5. **Year** - Ano do sinistro
 
 ---
 
-## 📊 Dataset
+## ⚠️ Notas de Compatibilidade
 
-### Fraud Oracle Dataset
+Este projeto enfrenta incompatibilidades conhecidas entre:
+- NumPy 2.x vs NumPy 1.26.x
+- SHAP 0.50.x vs bibliotecas de boosting
+- PyCaret 3.3.x vs ecossistema de ML
 
-**Fonte:** [Kaggle - Fraud Oracle Dataset](https://www.kaggle.com/datasets/mastmustu/fraud-oracle-dataset)
+**Solução adotada:** Ambientes virtuais separados.
 
-**Características:**
-- **Instâncias:** 15.420
-- **Features:** 33 (originais)
-- **Target:** FraudFound_P (binário)
-- **Desbalanceamento:** ~6% fraudes
-- **Tamanho:** 3.6 MB
-
-**Divisão:**
-- Treino: 9.252 (60%)
-- Validação: 3.084 (20%)
-- Teste: 3.084 (20%)
-
-### Feature Engineering
-
-O pipeline aplica 154 features derivadas:
-- Target Encoding
-- Taxas de fraude por categoria
-- Detecção de anomalias (Isolation Forest)
-- Variáveis temporais
-- Interações entre features
-
-**Detalhes:** Ver `src/preprocessing/feature_engineering.py`
+Detalhes completos em [docs/COMPATIBILITY_NOTES.md](docs/COMPATIBILITY_NOTES.md).
 
 ---
 
-## 🏆 Modelo Campeão
+## 📚 Referências
 
-### Arquitetura
-
-**Algoritmo:** CatBoost  
-**Balanceamento:** SMOTEENN  
-**Otimização:** Optuna (100 trials)  
-**Métrica de Otimização:** Kappa de Cohen
-
-### Hiperparâmetros
-
-```yaml
-learning_rate: 0.05
-depth: 6
-iterations: 500
-l2_leaf_reg: 3
-border_count: 128
-random_strength: 1
-```
-
-### Pipeline Completo
-
-```
-Raw Data → Feature Engineering → SMOTEENN → CatBoost → Threshold Tuning → Predições
-```
+- **Dataset:** [Fraud Oracle - Kaggle](https://www.kaggle.com/datasets/shivamb/vehicle-claim-fraud-detection)
+- **SHAP:** Lundberg & Lee (2017) - [A Unified Approach to Interpreting Model Predictions](https://arxiv.org/abs/1705.07874)
+- **Métricas Robustas:** Huayanay, Bazán & Russo (2024) - Performance of evaluation metrics for classification in imbalanced data
 
 ---
 
-## 📈 Análise de Interpretabilidade
+## 📄 Licença
 
-### SHAP (SHapley Additive exPlanations)
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
-**Variável mais importante:** `Fault_Policy_Holder` (culpa do segurado)
-
-**TOP 5 Features:**
-1. Fault_Policy_Holder (importância SHAP ~1.0)
-2. Is_Third_Party_Fault (~0.55)
-3. BasePolicy_fraud_rate (~0.55)
-4. Year (~0.45)
-5. RepNumber (~0.45)
-
-**Visualizações:**
-- Summary Beeswarm (TOP 20)
-- Dependence Plots
-- Waterfall (casos específicos)
-- Force Plots interativos
-
-**Detalhes:** Ver `results/shap_results/`
-
----
-
-## 📝 Citação
-
-Se você utilizar este trabalho, por favor cite:
-
-```bibtex
-@mastersthesis{rodrigues2025fraud,
-  author       = {Eduardo Barbante Rodrigues},
-  title        = {Detecção de Fraudes em Seguros Automotivos com Machine Learning: 
-                  Uma Abordagem Integrando Avaliação Técnica, Econômica e Interpretabilidade},
-  school       = {Instituto de Ciências Matemáticas e de Computação, Universidade de São Paulo},
-  year         = {2025},
-  address      = {São Carlos, SP, Brasil},
-  note         = {Trabalho de Conclusão de Curso},
-}
-```
 ---
 
 ## 👤 Autor
 
 **Eduardo Barbante Rodrigues**
-
+- LinkedIn: [/in/eduardo-barbante](https://linkedin.com/in/eduardo-barbante)
 - GitHub: [@edurodrigues-usp](https://github.com/edurodrigues-usp)
-- LinkedIn: [Eduardo Rodrigues](https://www.linkedin.com/in/eduardorodrigues01/)
-- Email: eduardo.rds@icloud.com
 
 ---
 
 ## 🙏 Agradecimentos
 
-- **Profa. Dra. Cibele M. Russo** - Orientação acadêmica
-- **ICMC-USP** - Infraestrutura e suporte
-- **Porto Seguro** - Contexto profissional e motivação
-- **Comunidade Kaggle** - Dataset Fraud Oracle
-
----
-
-## 📚 Referências Principais
-
-1. **Chawla et al. (2002)** - SMOTE: Synthetic Minority Over-sampling Technique
-2. **Lundberg & Lee (2017)** - A Unified Approach to Interpreting Model Predictions (SHAP)
-3. **Prokhorenkova et al. (2018)** - CatBoost: unbiased boosting with categorical features
-4. **Huayanay et al. (2024)** - Performance Evaluation of Machine Learning Models with Kappa
-
----
-
-## 🔗 Links Úteis
-
-- [Documentação do CatBoost](https://catboost.ai/)
-- [Documentação do SHAP](https://shap.readthedocs.io/)
-- [PyCaret Documentation](https://pycaret.org/)
-- [Optuna Documentation](https://optuna.org/)
-
----
-
-## ⭐ Se este projeto foi útil, considere dar uma estrela!
-
----
-
-**Última atualização:** Novembro 2025  
-**Versão:** 1.0.0
+- Profa. Dra. Cibele Maria Russo Novelli (Orientadora)
+- Profa. Dra. Solange Oliveira Rezende
+- ICMC-USP
+- Porto Seguro (contexto profissional)
