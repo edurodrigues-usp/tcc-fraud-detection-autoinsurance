@@ -6,7 +6,20 @@ Durante o desenvolvimento deste projeto, foram identificadas incompatibilidades 
 
 ## Conflitos Identificados
 
-### 1. NumPy 2.x vs Serialização de Modelos
+### 1. SHAP vs PyCaret/XGBoost no Mesmo Ambiente
+
+**Sintoma:** Erro ao tentar usar SHAP no ambiente de treinamento.
+
+**Causa:** 
+- PyCaret 3.3.2 requer `numpy==1.26.4`
+- SHAP 0.50.0 requer `numpy >= 2.0`
+- Conflito irreconciliável no mesmo ambiente
+
+**Solução:** Usar **dois ambientes virtuais separados**:
+- Ambiente 1 (Main): Treinamento com NumPy 1.26.4
+- Ambiente 2 (SHAP): Análise SHAP com NumPy >= 2.0
+
+### 2. NumPy 2.x vs Serialização de Modelos
 
 **Sintoma:** Erro ao carregar modelos `.pkl` salvos com NumPy 1.x em ambiente com NumPy 2.x.
 
@@ -46,20 +59,22 @@ ImportError: cannot import name 'np' from 'numpy'
 
 ## Arquitetura de Solução
 
-A solução adotada foi criar **dois ambientes virtuais separados**:
+A solução adotada foi criar **dois ambientes virtuais separados** com dependências diferentes:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    AMBIENTE PRINCIPAL                        │
 │                      (venv_main)                            │
 │                                                             │
-│  NumPy >= 1.24.0, < 2.0.0                                  │
-│  scikit-learn, imbalanced-learn                            │
-│  XGBoost, LightGBM, CatBoost                               │
-│  Optuna                                                     │
+│  Python 3.11 (ou 3.10)                                     │
+│  NumPy 1.26.4 (fixo!)                                      │
+│  PyCaret 3.3.2                                             │
+│  XGBoost 3.1.1, LightGBM 4.6.0, CatBoost                   │
+│  Optuna 4.6.0                                              │
 │                                                             │
-│  📝 Usado para: Treino, Validação, Teste                    │
+│  ✅ Treino, Validação, Teste, Otimização                   │
 │  📦 Saída: best_model_final_full.pkl                       │
+│  ❌ NÃO roda SHAP aqui                                      │
 └─────────────────────────────────────────────────────────────┘
                            │
                            │ (arquivo .pkl)
@@ -68,13 +83,15 @@ A solução adotada foi criar **dois ambientes virtuais separados**:
 │                    AMBIENTE SHAP                            │
 │                     (venv_shap)                             │
 │                                                             │
-│  NumPy == 1.26.4 (FIXO!)                                   │
-│  Pandas == 2.1.4 (FIXO!)                                   │
-│  SHAP == 0.50.0                                            │
-│  + mesmas libs de ML (para deserialização)                 │
+│  Python 3.11 (ou 3.10)                                     │
+│  NumPy >= 2.0                                              │
+│  SHAP 0.50.0                                               │
+│  XGBoost 3.1.1 (mesmo do treino)                           │
+│  Matplotlib, Seaborn                                        │
 │                                                             │
-│  📝 Usado para: Análise de Interpretabilidade              │
+│  ✅ Análise de Interpretabilidade                          │
 │  📊 Saída: Gráficos SHAP, CSVs                             │
+│  ❌ NÃO tem PyCaret/Optuna (não precisa)                   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -92,6 +109,18 @@ venv_shap\Scripts\activate
 REM Verificar versões
 python -c "import numpy; print(f'NumPy: {numpy.__version__}')"
 python -c "import shap; print(f'SHAP: {shap.__version__}')"
+```
+
+### Windows (múltiplas versões do Python)
+
+Se você tem Python 3.11 e 3.12 instalados, use o **py launcher** para especificar a versão:
+
+```batch
+REM Criar venv com Python 3.11 específico
+py -3.11 -m venv venv_shap
+
+REM Listar versões disponíveis
+py --list
 ```
 
 ### Linux/Mac
@@ -112,16 +141,17 @@ python -c "import shap; print(f'SHAP: {shap.__version__}')"
 
 | Biblioteca | Ambiente Main | Ambiente SHAP |
 |------------|---------------|---------------|
-| Python | 3.11.x | 3.11.x |
-| NumPy | 1.26.4 | 1.26.4 |
-| Pandas | 2.1.4 | 2.1.4 |
-| scikit-learn | 1.4.2 | 1.4.2 |
-| XGBoost | 2.0.3 | 2.0.3 |
-| LightGBM | 4.3.0 | 4.3.0 |
-| CatBoost | 1.2.7 | 1.2.7 |
-| SHAP | - | 0.50.0 |
-| imbalanced-learn | 0.12.0 | 0.12.0 |
-| Optuna | 3.6.1 | - |
+| Python | 3.11 (ou 3.10) | 3.11 (ou 3.10) |
+| NumPy | 1.26.4 | >= 2.0 |
+| Pandas | 2.1.4 | >= 2.1 |
+| scikit-learn | 1.4.2 | >= 1.4.0 |
+| XGBoost | 3.1.1 | 3.1.1 |
+| LightGBM | 4.6.0 | >= 4.0.0 |
+| CatBoost | >= 1.2.0 | >= 1.2.0 |
+| SHAP | ❌ Não instalar | 0.50.0 |
+| imbalanced-learn | 0.12.0 | >= 0.12.0 |
+| Optuna | 4.6.0 | ❌ Não necessário |
+| PyCaret | 3.3.2 | ❌ Não necessário |
 
 ## Alternativas Consideradas
 

@@ -2,28 +2,33 @@
 # Requirements - Análise SHAP (Interpretabilidade)
 # =============================================================================
 # Ambiente: venv_shap
-# Python: 3.11+
+# Python: 3.11 (ou 3.10)
 # =============================================================================
 #
-# ⚠️ ATENÇÃO: Este ambiente usa versões ESPECÍFICAS para evitar conflitos!
-#    NumPy 1.26.4 é OBRIGATÓRIO (NumPy 2.x causa erros de desserialização)
+# Este ambiente é usado para:
+#   ✅ Carregar modelo salvo (.pkl)
+#   ✅ Gerar explicações SHAP
+#   ✅ Criar visualizações de interpretabilidade
+#
+# NÃO roda treinamento (modelo já vem pronto do Ambiente 1)
+# NÃO tem PyCaret (não é necessário)
 #
 # =============================================================================
 
-# Core - VERSÕES FIXAS para compatibilidade
-numpy==1.26.4
-pandas==2.1.4
+# Core
+numpy>=2.0
+pandas>=2.1
 
 # SHAP
 shap==0.50.0
 
 # Visualização
-matplotlib>=3.7.0
-seaborn>=0.12.0
+matplotlib>=3.9
+seaborn>=0.13
 
-# ML (necessário para carregar o modelo)
+# ML (necessário para carregar o modelo .pkl)
 scikit-learn>=1.4.0
-xgboost>=2.0.0
+xgboost==3.1.1
 lightgbm>=4.0.0
 catboost>=1.2.0
 

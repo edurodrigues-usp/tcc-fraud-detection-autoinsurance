@@ -106,9 +106,11 @@ pip install -r requirements/requirements_main.txt
 
 #### Ambiente SHAP (Interpretabilidade)
 
+⚠️ **IMPORTANTE:** Este ambiente usa NumPy 2.0+ (diferente do Main que usa 1.26.4).
+
 ```bash
 # Linux/Mac
-python -m venv venv_shap
+python3 -m venv venv_shap
 source venv_shap/bin/activate
 pip install -r requirements/requirements_shap.txt
 
@@ -116,7 +118,14 @@ pip install -r requirements/requirements_shap.txt
 python -m venv venv_shap
 venv_shap\Scripts\activate
 pip install -r requirements/requirements_shap.txt
+
+# Windows (se tiver múltiplas versões do Python)
+py -3.11 -m venv venv_shap
+venv_shap\Scripts\activate
+pip install -r requirements/requirements_shap.txt
 ```
+
+> **Por quê dois ambientes?** PyCaret requer NumPy 1.26.4, mas SHAP 0.50.0 requer NumPy >= 2.0. Ver [docs/COMPATIBILITY_NOTES.md](docs/COMPATIBILITY_NOTES.md) para detalhes.
 
 ### 4. Execute o Pipeline
 
@@ -240,12 +249,11 @@ Dataset Bruto (15.420 registros)
 
 ## ⚠️ Notas de Compatibilidade
 
-Este projeto enfrenta incompatibilidades conhecidas entre:
-- NumPy 2.x vs NumPy 1.26.x
-- SHAP 0.50.x vs bibliotecas de boosting
-- PyCaret 3.3.x vs ecossistema de ML
+Este projeto requer **dois ambientes virtuais separados** devido a conflitos entre:
+- **PyCaret 3.3.2** → requer NumPy 1.26.4
+- **SHAP 0.50.0** → requer NumPy >= 2.0
 
-**Solução adotada:** Ambientes virtuais separados.
+**Solução:** Ambiente Main (treino) separado do Ambiente SHAP (interpretabilidade).
 
 Detalhes completos em [docs/COMPATIBILITY_NOTES.md](docs/COMPATIBILITY_NOTES.md).
 

@@ -2,25 +2,37 @@
 # Requirements - Pipeline Principal de Detecção de Fraudes
 # =============================================================================
 # Ambiente: venv_main
-# Python: 3.11+
+# Python: 3.11 (ou 3.10)
+# =============================================================================
+#
+# Este ambiente é usado para:
+#   ✅ Treinar modelos
+#   ✅ Otimizar hiperparâmetros com Optuna
+#   ✅ Avaliar métricas (MCC, G-Mean, Kappa)
+#   ✅ Salvar modelo (.pkl)
+#
+# NÃO roda análise SHAP (usar ambiente separado)
+#
 # =============================================================================
 
-# Core Data Science
-numpy>=1.24.0,<2.0.0
-pandas>=2.0.0
-scipy>=1.10.0
+# Core - VERSÕES FIXAS para compatibilidade
+numpy==1.26.4
+pandas==2.1.4
 
 # Machine Learning
-scikit-learn>=1.4.0
-imbalanced-learn>=0.12.0
+scikit-learn==1.4.2
+imbalanced-learn==0.12.0
 
 # Gradient Boosting
-xgboost>=2.0.0
-lightgbm>=4.0.0
+xgboost==3.1.1
+lightgbm==4.6.0
 catboost>=1.2.0
 
 # Hyperparameter Optimization
-optuna>=3.5.0
+optuna==4.6.0
+
+# AutoML (opcional, mas útil)
+pycaret==3.3.2
 
 # Utilities
 joblib>=1.3.0
