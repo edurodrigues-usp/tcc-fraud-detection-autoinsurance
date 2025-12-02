@@ -70,7 +70,6 @@ tcc-fraud-detection-autoinsurance/
 ### Pré-requisitos
 
 - Python 3.11+
-- Git
 
 ### 1. Clone o Repositório
 
