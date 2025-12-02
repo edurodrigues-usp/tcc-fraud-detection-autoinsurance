@@ -61,7 +61,6 @@ env/
 # e essencial para reprodução. Outros arquivos de dados são ignorados.
 data/*.xlsx
 data/*.json
-!data/fraud_oracle.csv
 !data/.gitkeep
 
 # -----------------------------------------------------------------------------
@@ -78,6 +77,7 @@ data/*.json
 outputs/
 shap_results/
 *.csv
+!data/fraud_oracle.csv
 !requirements/*.txt
 *.png
 *.jpg
