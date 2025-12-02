@@ -1,6 +1,6 @@
 """
 ================================================================================
-ANÁLISE SHAP STANDALONE - Versão PREMIUM (compatível com model_package_full)
+ANÁLISE SHAP STANDALONE - (compatível com model_package_full)
 ================================================================================
 
 - Lê o modelo salvo em .pkl pelo pipeline final:
