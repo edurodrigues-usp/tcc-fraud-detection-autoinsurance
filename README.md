@@ -276,7 +276,7 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICE
 ## 👤 Autor
 
 **Eduardo Barbante Rodrigues**
-- LinkedIn: [/in/eduardo-barbante](https://linkedin.com/in/eduardo-barbante)
+- LinkedIn: [/in/eduardorodrigues01](https://linkedin.com/in/eduardorodrigues01)
 - GitHub: [@edurodrigues-usp](https://github.com/edurodrigues-usp)
 
 ---
