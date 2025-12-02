@@ -5,7 +5,7 @@ PIPELINE FINAL COM FEATURE ENGINEERING + SMOTE + OPTUNA + THRESHOLD TUNING
 ================================================================================
 
 Objetivo:
-    - Pipeline transparente, reprodutível
+    - Pipeline transparente, reprodutível.
     - Feature engineering avançado SEM data leakage.
     - Tratamento de desbalanceamento com SMOTE e variações.
     - Otimização de hiperparâmetros com Optuna (RF, XGB, LGBM, CatBoost).
@@ -90,6 +90,7 @@ except ImportError:
 # CONFIGURAÇÃO DE DIRETÓRIOS (paths relativos à raiz do projeto)
 # ============================================================================
 from pathlib import Path
+import argparse
 
 # Detecta o diretório raiz do projeto (um nível acima de /src)
 SCRIPT_DIR = Path(__file__).parent  # /src
@@ -108,6 +109,32 @@ print(f"📂 Dados: {DATA_DIR}")
 print(f"📂 Saídas: {OUTPUT_DIR}")
 
 # ============================================================================
+# ARGUMENTOS DE LINHA DE COMANDO
+# ============================================================================
+parser = argparse.ArgumentParser(
+    description="Pipeline de Detecção de Fraudes em Seguros Automotivos",
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    epilog="""
+Exemplos de uso:
+  python fraud_detection.py              # Modo FULL (padrão)
+  python fraud_detection.py --fast       # Modo FAST (teste rápido)
+  python fraud_detection.py --no-cv      # Modo FULL sem validação cruzada
+  python fraud_detection.py --fast --no-cv
+    """
+)
+parser.add_argument(
+    "--fast", 
+    action="store_true",
+    help="Modo rápido: menos trials, menos samplers (para teste)"
+)
+parser.add_argument(
+    "--no-cv", 
+    action="store_true",
+    help="Desabilita validação cruzada 5-fold do modelo campeão"
+)
+args = parser.parse_args()
+
+# ============================================================================
 # CONFIGURAÇÕES GERAIS + FAST/FULL MODE
 # ============================================================================
 
@@ -115,11 +142,12 @@ RANDOM_STATE = 42
 FRAUD_COST = 40_000       # custo médio de uma fraude não detectada
 INVESTIGATION_COST = 1000 # custo médio por investigação / sindicancia
 
-# >>> ALTERE AQUI CONFORME NECESSÁRIO <<<
-FAST_MODE = False   # True = execução rápida para testes | False = execução completa para TCC
-RUN_CHAMPION_CV = True  # True = roda CV 5-fold nos 80% para o modelo campeão
+# Configurações via argumentos de linha de comando
+FAST_MODE = args.fast
+RUN_CHAMPION_CV = not args.no_cv
 
 print("\n🚀 Modo selecionado:", "FAST" if FAST_MODE else "FULL")
+print(f"📊 Validação cruzada: {'SIM' if RUN_CHAMPION_CV else 'NÃO'}")
 
 if FAST_MODE:
     # 🔥 MODO FAST: foco em rapidez para debug / testes

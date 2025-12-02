@@ -58,7 +58,7 @@ env/
 # Dados (dataset incluído para reprodutibilidade)
 # -----------------------------------------------------------------------------
 # Nota: fraud_oracle.csv é mantido no repositório por ser pequeno (3.5MB)
-# e essencial para reprodução. Outros arquivos de dados são ignorados.
+# e essencial para reprodução. A exceção está na seção de Outputs.
 data/*.xlsx
 data/*.json
 !data/.gitkeep

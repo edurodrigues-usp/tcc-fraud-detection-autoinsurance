@@ -70,8 +70,6 @@ tcc-fraud-detection-autoinsurance/
 ### Pré-requisitos
 
 - Python 3.11+
-- Git
-- 16GB RAM (recomendado)
 
 ### 1. Clone o Repositório
 
@@ -137,11 +135,20 @@ source venv_main/bin/activate  # Linux/Mac
 # ou
 venv_main\Scripts\activate     # Windows
 
-# Executar pipeline (modo FAST para teste rápido)
+# Executar pipeline (da pasta src/)
 cd src
+
+# Modo FULL (padrão) - execução completa para TCC
 python fraud_detection.py
 
-# Para execução completa (TCC), edite FAST_MODE = False no script
+# Modo FAST - teste rápido (~5-10 min)
+python fraud_detection.py --fast
+
+# Modo FULL sem validação cruzada
+python fraud_detection.py --no-cv
+
+# Ver todas as opções
+python fraud_detection.py --help
 ```
 
 **Saídas geradas em `outputs/`:**
@@ -276,7 +283,7 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICE
 ## 👤 Autor
 
 **Eduardo Barbante Rodrigues**
-- LinkedIn: [/in/eduardo-barbante](https://linkedin.com/in/eduardo-barbante)
+- LinkedIn: [/in/eduardorodrigues01](https://linkedin.com/in/eduardorodrigues01)
 - GitHub: [@edurodrigues-usp](https://github.com/edurodrigues-usp)
 
 ---
