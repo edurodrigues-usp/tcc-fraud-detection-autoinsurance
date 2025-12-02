@@ -71,7 +71,6 @@ tcc-fraud-detection-autoinsurance/
 
 - Python 3.11+
 - Git
-- 16GB RAM (recomendado)
 
 ### 1. Clone o Repositório
 
