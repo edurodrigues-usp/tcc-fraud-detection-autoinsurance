@@ -80,12 +80,11 @@ git clone https://github.com/edurodrigues-usp/tcc-fraud-detection-autoinsurance.
 cd tcc-fraud-detection-autoinsurance
 ```
 
-### 2. Baixe o Dataset
+### 2. O Dataset já está incluído! ✅
 
-O dataset **Fraud Oracle** está disponível no Kaggle:
-- 📥 [Vehicle Insurance Claim Fraud Detection](https://www.kaggle.com/datasets/shivamb/vehicle-claim-fraud-detection)
+O arquivo `data/fraud_oracle.csv` já está no repositório (3.5MB).
 
-Após download, coloque o arquivo `fraud_oracle.csv` na pasta `data/`.
+Fonte original: [Kaggle - Vehicle Insurance Claim Fraud Detection](https://www.kaggle.com/datasets/shivamb/vehicle-claim-fraud-detection)
 
 ### 3. Configure os Ambientes
 
@@ -136,7 +135,7 @@ python fraud_detection.py
 # Para execução completa (TCC), edite FAST_MODE = False no script
 ```
 
-**Saídas geradas:**
+**Saídas geradas em `outputs/`:**
 - `best_model_final_full.pkl` - Modelo completo para SHAP
 - `best_model_final_light.pkl` - Modelo leve para deploy
 - `model_comparison_FINAL_V3.csv` - Comparação de todos os modelos
@@ -151,15 +150,12 @@ source venv_shap/bin/activate  # Linux/Mac
 # ou
 venv_shap\Scripts\activate     # Windows
 
-# Copiar arquivos necessários
-cp ../outputs/best_model_final_full.pkl .
-cp ../data/fraud_oracle.csv .
-
-# Executar análise SHAP
+# Executar análise SHAP (da pasta src/)
+cd src
 python fraud_detection_shap_analysis.py
 ```
 
-**Saídas geradas (pasta `shap_results/`):**
+**Saídas geradas em `outputs/shap_results/`:**
 - 23 visualizações PNG (summary plots, waterfalls, dependence plots)
 - 1 HTML interativo (force plot)
 - CSVs com valores SHAP e importâncias

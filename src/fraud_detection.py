@@ -87,6 +87,27 @@ except ImportError:
 
 
 # ============================================================================
+# CONFIGURAÇÃO DE DIRETÓRIOS (paths relativos à raiz do projeto)
+# ============================================================================
+from pathlib import Path
+
+# Detecta o diretório raiz do projeto (um nível acima de /src)
+SCRIPT_DIR = Path(__file__).parent  # /src
+PROJECT_ROOT = SCRIPT_DIR.parent     # raiz do projeto
+
+# Diretórios de entrada e saída
+DATA_DIR = PROJECT_ROOT / "data"
+OUTPUT_DIR = PROJECT_ROOT / "outputs"
+OUTPUT_DIR.mkdir(exist_ok=True)
+
+# Arquivos
+DATA_FILE = DATA_DIR / "fraud_oracle.csv"
+
+print(f"📁 Diretório do projeto: {PROJECT_ROOT}")
+print(f"📂 Dados: {DATA_DIR}")
+print(f"📂 Saídas: {OUTPUT_DIR}")
+
+# ============================================================================
 # CONFIGURAÇÕES GERAIS + FAST/FULL MODE
 # ============================================================================
 
@@ -717,7 +738,7 @@ if __name__ == "__main__":
     print("1. CARREGAMENTO DO DATASET")
     print("=" * 80)
 
-    df = pd.read_csv("fraud_oracle.csv")
+    df = pd.read_csv(DATA_FILE)
     print(f"📊 Dataset original: {df.shape[0]} registros, {df.shape[1]} variáveis")
     print(f"   Taxa de fraude: {df['FraudFound_P'].mean() * 100:.2f}%")
 
@@ -1274,8 +1295,8 @@ if __name__ == "__main__":
         print("\n===== DESVIO-PADRÃO CV (5-FOLD) =====")
         print(cv_df.std(numeric_only=True))
 
-        cv_df.to_csv("champion_cv_results.csv", index=False)
-        print("\n💾 Resultados da CV do campeão salvos em: champion_cv_results.csv")
+        cv_df.to_csv(OUTPUT_DIR / "champion_cv_results.csv", index=False)
+        print(f"\n💾 Resultados da CV do campeão salvos em: {OUTPUT_DIR / 'champion_cv_results.csv'}")
 
     # ----------------------------------------------------------------------
     # 8. SALVANDO RESULTADOS E MODELOS
@@ -1285,8 +1306,8 @@ if __name__ == "__main__":
     print("=" * 80)
 
     # 8.1 Salvar CSV de comparação de modelos
-    metrics_df.to_csv("model_comparison_FINAL_V3.csv", index=False)
-    print("💾 Resultados salvos em: model_comparison_FINAL_V3.csv")
+    metrics_df.to_csv(OUTPUT_DIR / "model_comparison_FINAL_V3.csv", index=False)
+    print(f"💾 Resultados salvos em: {OUTPUT_DIR / 'model_comparison_FINAL_V3.csv'}")
 
     # 8.2 Pacote COMPLETO (para SHAP / reprodução / produção)
     model_package_full = {
@@ -1302,10 +1323,10 @@ if __name__ == "__main__":
         "fast_mode": FAST_MODE,
     }
 
-    with open("best_model_final_full.pkl", "wb") as f:
+    with open(OUTPUT_DIR / "best_model_final_full.pkl", "wb") as f:
         pickle.dump(model_package_full, f)
 
-    print("💾 Modelo COMPLETO salvo em: best_model_final_full.pkl")
+    print(f"💾 Modelo COMPLETO salvo em: {OUTPUT_DIR / 'best_model_final_full.pkl'}")
     print("   → Contém pipeline + FE + colunas + métricas")
     print("   → Use este arquivo para SHAP e explicabilidade.")
 
@@ -1317,10 +1338,10 @@ if __name__ == "__main__":
         "sampler_name": best_sampler_name,
     }
 
-    with open("best_model_final_light.pkl", "wb") as f:
+    with open(OUTPUT_DIR / "best_model_final_light.pkl", "wb") as f:
         pickle.dump(model_package_light, f)
 
-    print("💾 Modelo LEVE salvo em: best_model_final_light.pkl")
+    print(f"💾 Modelo LEVE salvo em: {OUTPUT_DIR / 'best_model_final_light.pkl'}")
     print("   → Sem feature engineering nem objetos customizados")
     print("   → Use este arquivo no Google Colab.")
 

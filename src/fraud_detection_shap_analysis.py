@@ -54,16 +54,24 @@ print("=" * 80)
 # 1. CONFIGURAÇÕES
 # ============================================================================
 
-# Ajuste o nome do arquivo de modelo conforme o que o seu pipeline salvou:
-# Ex.: 'best_model_final_full.pkl'
-MODEL_FILE = "best_model_final_full.pkl"
-DATA_FILE = "fraud_oracle.csv"
+# Detecta o diretório raiz do projeto (um nível acima de /src)
+SCRIPT_DIR = Path(__file__).parent  # /src
+PROJECT_ROOT = SCRIPT_DIR.parent     # raiz do projeto
+
+# Diretórios
+DATA_DIR = PROJECT_ROOT / "data"
+OUTPUT_DIR_BASE = PROJECT_ROOT / "outputs"
+OUTPUT_DIR = OUTPUT_DIR_BASE / "shap_results"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+# Arquivos de entrada
+MODEL_FILE = OUTPUT_DIR_BASE / "best_model_final_full.pkl"
+DATA_FILE = DATA_DIR / "fraud_oracle.csv"
 
 RANDOM_STATE = 42
-OUTPUT_DIR = Path("shap_results")
-OUTPUT_DIR.mkdir(exist_ok=True)
 SAMPLE_SIZE = 1000  # amostra máxima para SHAP (para não ficar insano)
 
+print(f"\n📁 Diretório do projeto: {PROJECT_ROOT}")
 print("\n📂 Configurações:")
 print(f"   Modelo (.pkl): {MODEL_FILE}")
 print(f"   Dataset:       {DATA_FILE}")

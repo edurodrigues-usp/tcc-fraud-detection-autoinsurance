@@ -55,11 +55,13 @@ env/
 *.ipynb_checkpoints
 
 # -----------------------------------------------------------------------------
-# Dados (baixar do Kaggle)
+# Dados (dataset incluído para reprodutibilidade)
 # -----------------------------------------------------------------------------
-data/*.csv
+# Nota: fraud_oracle.csv é mantido no repositório por ser pequeno (3.5MB)
+# e essencial para reprodução. Outros arquivos de dados são ignorados.
 data/*.xlsx
 data/*.json
+!data/fraud_oracle.csv
 !data/.gitkeep
 
 # -----------------------------------------------------------------------------
