@@ -5,7 +5,7 @@ PIPELINE FINAL COM FEATURE ENGINEERING + SMOTE + OPTUNA + THRESHOLD TUNING
 ================================================================================
 
 Objetivo:
-    - Pipeline transparente, reprodutível e defendível em TCC.
+    - Pipeline transparente, reprodutível
     - Feature engineering avançado SEM data leakage.
     - Tratamento de desbalanceamento com SMOTE e variações.
     - Otimização de hiperparâmetros com Optuna (RF, XGB, LGBM, CatBoost).
